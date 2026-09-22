@@ -17,6 +17,10 @@ THEME = gr.themes.Soft(
     block_border_color_dark="#243049",
     block_label_text_color="#9db0c9",
     block_title_text_color="#f4f7fb",
+    background_fill_secondary="#1b2942",
+    background_fill_secondary_dark="#1b2942",
+    color_accent_soft="#0f766e",
+    color_accent_soft_dark="#0f766e",
     button_primary_background_fill="#14b8a6",
     button_primary_background_fill_hover="#2dd4bf",
     button_primary_text_color="#042f2e",
@@ -28,31 +32,31 @@ CSS = """
 .gradio-container {
     max-width: 920px !important;
     margin: 0 auto !important;
-    padding-top: 1.5rem !important;
+    padding-top: 0.75rem !important;
     font-family: "DM Sans", sans-serif;
 }
 
 .hero {
     background: linear-gradient(135deg, #12203a 0%, #0f3d3a 100%);
     border: 1px solid #2a3a57;
-    border-radius: 20px;
-    padding: 28px 32px 22px;
-    margin-bottom: 16px;
+    border-radius: 16px;
+    padding: 16px 24px 14px;
+    margin-bottom: 10px;
     box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
 }
 
 .hero h1 {
     color: #f8fafc;
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 700;
-    margin: 0 0 8px 0;
+    margin: 0 0 4px 0;
     letter-spacing: -0.03em;
 }
 
 .hero p {
-    color: #b7c7db;
-    font-size: 1.02rem;
-    line-height: 1.5;
+    color: #c6d4e6;
+    font-size: 0.95rem;
+    line-height: 1.4;
     margin: 0;
 }
 
@@ -60,7 +64,7 @@ CSS = """
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    margin-top: 16px;
+    margin-top: 10px;
 }
 
 .badge {
@@ -76,14 +80,51 @@ CSS = """
 
 #chatbot {
     border: 1px solid #2a3a57 !important;
-    min-height: 460px;
+    height: calc(100vh - 330px) !important;
+    min-height: 220px !important;
+    max-height: 520px !important;
+}
+
+#chatbot .message,
+#chatbot .message-row .message {
+    border-radius: 14px !important;
+    line-height: 1.55;
+}
+
+#chatbot .message.bot,
+#chatbot .bot .message,
+#chatbot [data-testid="bot"] {
+    background: #1b2942 !important;
+    border: 1px solid #33456a !important;
+    color: #eef4fc !important;
+}
+
+#chatbot .message.user,
+#chatbot .user .message,
+#chatbot [data-testid="user"] {
+    background: #0f766e !important;
+    border: 1px solid #2dd4bf !important;
+    color: #f0fdfa !important;
+}
+
+#chatbot .message p,
+#chatbot .message li,
+#chatbot .message span,
+#chatbot [data-testid="bot"] *,
+#chatbot [data-testid="user"] * {
+    color: inherit !important;
+}
+
+#chatbot .message a {
+    color: #7dd3fc !important;
+    text-decoration: underline;
 }
 
 footer.site-footer {
-    color: #7f93ad;
-    font-size: 0.85rem;
+    color: #93a7c0;
+    font-size: 0.82rem;
     text-align: center;
-    margin-top: 8px;
+    margin-top: 6px;
 }
 """
 
@@ -118,7 +159,7 @@ def create_ui(chat_fn, name: str):
                 elem_id="chatbot",
                 label=f"Chat with {name}",
                 type="messages",
-                height=480,
+                height=360,
                 avatar_images=(None, None),
             ),
             textbox=gr.Textbox(
